@@ -4,8 +4,8 @@ import cv2
 import h5py
 import numpy
 
-DATA_PATH = "/home/mark/Engineer/SR/data/Train/"
-TEST_PATH = "/home/mark/Engineer/SR/SRCNN_createData/Test/Set14/"
+DATA_PATH = "../SRCNN/train/"
+TEST_PATH = "../SRCNN/test"
 Random_Crop = 30
 Patch_size = 32
 label_size = 20
@@ -30,7 +30,7 @@ def prepare_data(_path):
         hr_img = hr_img[:, :, 0]
 
         # two resize operation to produce training data and labels
-        lr_img = cv2.resize(hr_img, (shape[1] / scale, shape[0] / scale))
+        lr_img = cv2.resize(hr_img, (int(shape[1] / scale), int(shape[0] / scale)))
         lr_img = cv2.resize(lr_img, (shape[1], shape[0]))
 
         # produce Random_Crop random coordinate to crop training img
@@ -72,7 +72,7 @@ def prepare_crop_data(_path):
         shape = hr_img.shape
 
         # two resize operation to produce training data and labels
-        lr_img = cv2.resize(hr_img, (shape[1] / scale, shape[0] / scale))
+        lr_img = cv2.resize(hr_img, (int(shape[1] / scale), int(shape[0] / scale)))
         lr_img = cv2.resize(lr_img, (shape[1], shape[0]))
 
         width_num = (shape[0] - (BLOCK_SIZE - BLOCK_STEP) * 2) / BLOCK_STEP
