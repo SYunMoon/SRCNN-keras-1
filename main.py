@@ -54,8 +54,8 @@ def predict_model():
 def train():
     srcnn_model = model()
     print(srcnn_model.summary())
-    data, label = pd.read_training_data("./train.h5")
-    val_data, val_label = pd.read_training_data("./test.h5")
+    data, label = pd.read_training_data("train.h5")
+    val_data, val_label = pd.read_training_data("test.h5")
 
     checkpoint = ModelCheckpoint("SRCNN_check.h5", monitor='val_loss', verbose=1, save_best_only=True,
                                  save_weights_only=False, mode='min')
@@ -102,10 +102,10 @@ def predict():
     im3 = cv2.imread(OUTPUT_NAME, cv2.IMREAD_COLOR)
     im3 = cv2.cvtColor(im3, cv2.COLOR_BGR2YCrCb)[6: -6, 6: -6, 0]
 
-    print "bicubic:"
-    print cv2.PSNR(im1, im2)
-    print "SRCNN:"
-    print cv2.PSNR(im1, im3)
+    print ("bicubic:")
+    print (cv2.PSNR(im1, im2))
+    print ("SRCNN:")
+    print (cv2.PSNR(im1, im3))
 
 
 if __name__ == "__main__":

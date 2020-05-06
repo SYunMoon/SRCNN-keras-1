@@ -5,7 +5,7 @@ import h5py
 import numpy
 
 DATA_PATH = "../SRCNN/train/"
-TEST_PATH = "../SRCNN/test"
+TEST_PATH = "../SRCNN/test/"
 Random_Crop = 30
 Patch_size = 32
 label_size = 20
@@ -75,8 +75,8 @@ def prepare_crop_data(_path):
         lr_img = cv2.resize(hr_img, (int(shape[1] / scale), int(shape[0] / scale)))
         lr_img = cv2.resize(lr_img, (shape[1], shape[0]))
 
-        width_num = (shape[0] - (BLOCK_SIZE - BLOCK_STEP) * 2) / BLOCK_STEP
-        height_num = (shape[1] - (BLOCK_SIZE - BLOCK_STEP) * 2) / BLOCK_STEP
+        width_num = int((shape[0] - (BLOCK_SIZE - BLOCK_STEP) * 2) / BLOCK_STEP)
+        height_num = int((shape[1] - (BLOCK_SIZE - BLOCK_STEP) * 2) / BLOCK_STEP)
         for k in range(width_num):
             for j in range(height_num):
                 x = k * BLOCK_STEP
@@ -127,7 +127,7 @@ def read_training_data(file):
 
 if __name__ == "__main__":
     data, label = prepare_crop_data(DATA_PATH)
-    write_hdf5(data, label, "crop_train.h5")
+    write_hdf5(data, label, "train.h5")
     data, label = prepare_data(TEST_PATH)
     write_hdf5(data, label, "test.h5")
     # _, _a = read_training_data("train.h5")
